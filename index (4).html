@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Talaat Hassan — Mechanical Design Engineer</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background: #0a0a0f; color: #e8e8e8; scroll-behavior: smooth; }
+
+  nav {
+    position: sticky; top: 0;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 0.5px solid rgba(255,255,255,0.08);
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center; z-index: 100;
+  }
+  .nav-logo { font-size: 15px; font-weight: 500; color: #fff; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .nav-links a:hover { color: #fff; }
+
+  .hero {
+    min-height: 86vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: flex-start;
+    padding: 5rem 3rem; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(83,74,183,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 12px; font-weight: 500; color: #534AB7;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 1.5rem; padding: 6px 14px;
+    border: 0.5px solid rgba(83,74,183,0.4); border-radius: 20px; display: inline-block;
+  }
+  .hero h1 { font-size: 52px; font-weight: 500; color: #fff; line-height: 1.1; margin-bottom: 1rem; }
+  .hero h1 span { color: #534AB7; }
+  .hero-sub { font-size: 17px; color: rgba(255,255,255,0.45); max-width: 480px; line-height: 1.7; margin-bottom: 2.5rem; }
+  .hero-btns { display: flex; gap: 1rem; }
+  .btn-primary { padding: 12px 28px; background: #534AB7; color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: background 0.2s; }
+  .btn-primary:hover { background: #3C3489; }
+  .btn-secondary { padding: 12px 28px; background: transparent; color: rgba(255,255,255,0.6); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 8px; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.35); color: #fff; }
+
+  .stats-bar { display: flex; gap: 3rem; padding: 2rem 3rem; border-top: 0.5px solid rgba(255,255,255,0.06); border-bottom: 0.5px solid rgba(255,255,255,0.06); flex-wrap: wrap; }
+  .stat-num { font-size: 28px; font-weight: 500; color: #fff; }
+  .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+  section { padding: 4rem 3rem; }
+  .section-title { font-size: 11px; font-weight: 500; color: #534AB7; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .section-heading { font-size: 28px; font-weight: 500; color: #fff; margin-bottom: 2.5rem; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
+    margin-bottom: 1.5rem;
+  }
+
+  .project-card {
+    background: #0d0d14;
+    border: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover { border-color: rgba(83,74,183,0.4); transform: translateY(-2px); }
+
+  .project-media-wrap {
+    position: relative;
+    width: 100%; height: 200px;
+    background: #111118;
+    overflow: hidden;
+  }
+  .project-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .project-video {
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+  }
+  .media-badge {
+    position: absolute; top: 10px; left: 10px;
+    background: rgba(0,0,0,0.65);
+    color: #fff; font-size: 10px; font-weight: 500;
+    padding: 4px 9px; border-radius: 20px;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 4px;
+    pointer-events: none;
+  }
+
+  .project-body { padding: 1.25rem; }
+  .project-title { font-size: 15px; font-weight: 500; color: #fff; margin-bottom: 0.5rem; }
+  .project-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.6; margin-bottom: 1rem; }
+  .project-tag { font-size: 11px; padding: 3px 10px; background: rgba(83,74,183,0.12); color: #7F77DD; border-radius: 20px; display: inline-block; }
+
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .skill-card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 1.25rem; display: flex; align-items: center; gap: 12px; }
+  .skill-dot { width: 8px; height: 8px; background: #534AB7; border-radius: 50%; flex-shrink: 0; }
+  .skill-name { font-size: 14px; color: rgba(255,255,255,0.7); }
+
+  .contact-box { background: rgba(83,74,183,0.08); border: 0.5px solid rgba(83,74,183,0.2); border-radius: 14px; padding: 3rem; text-align: center; }
+  .contact-box h3 { font-size: 22px; font-weight: 500; color: #fff; margin-bottom: 0.75rem; }
+  .contact-box p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 2rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link { padding: 10px 22px; background: rgba(255,255,255,0.05); border: 0.5px solid rgba(255,255,255,0.1); border-radius: 8px; color: rgba(255,255,255,0.6); font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+  .contact-link:hover { background: rgba(83,74,183,0.15); border-color: rgba(83,74,183,0.4); color: #fff; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-text { font-size: 15px; color: rgba(255,255,255,0.55); line-height: 1.8; }
+  .about-highlights { display: flex; flex-direction: column; gap: 12px; }
+  .highlight { padding: 1rem 1.25rem; background: rgba(255,255,255,0.03); border-left: 2px solid #534AB7; border-radius: 0 8px 8px 0; font-size: 14px; color: rgba(255,255,255,0.6); }
+  .highlight strong { display: block; color: #fff; font-weight: 500; margin-bottom: 3px; }
+
+  footer { padding: 1.5rem 3rem; border-top: 0.5px solid rgba(255,255,255,0.06); text-align: center; font-size: 12px; color: rgba(255,255,255,0.25); }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 32px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 1.5rem; }
+    section { padding: 3rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">MTH</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-tag">Mechanical Design Engineer</div>
+  <h1>Mohamed Talaat<br><span>Hassan</span></h1>
+  <p class="hero-sub">Specialized in 3D mechanical design and engineering solutions using SolidWorks — turning ideas into precise, manufacturable parts.</p>
+  <div class="hero-btns">
+    <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+    <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Projects completed</div></div>
+  <div class="stat"><div class="stat-num">3D</div><div class="stat-label">Modeling & Assembly</div></div>
+  <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Client satisfaction</div></div>
+  <div class="stat"><div class="stat-num">Freelance</div><div class="stat-label">Available for work</div></div>
+</div>
+
+<section id="about" style="background: rgba(255,255,255,0.015);">
+  <div class="section-title">About me</div>
+  <div class="section-heading">Engineering with precision</div>
+  <div class="about-grid">
+    <p class="about-text">I'm Mohamed Talaat Hassan, a mechanical design engineer with hands-on experience building 3D models, assemblies, and technical drawings using SolidWorks. I focus on creating designs that are functional, manufacturable, and precisely engineered — from mechanisms and heavy machinery to sheet metal enclosures and structural designs.<br><br>Available for freelance projects — from concept to detailed technical documentation.</p>
+    <div class="about-highlights">
+      <div class="highlight"><strong>3D Modeling</strong>Complex parts and full assemblies in SolidWorks</div>
+      <div class="highlight"><strong>Sheet Metal & Weldments</strong>Enclosures, brackets, and structural frames</div>
+      <div class="highlight"><strong>Design for Manufacturing</strong>Practical designs optimized for production</div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-title">Portfolio</div>
+  <div class="section-heading">Featured projects</div>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/vCQjvjpH/Screenshot-2026-06-16-202203.png" alt="Robotic Arm 6DOF">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Robotic Arm 6DOF</div>
+        <div class="project-desc">A 6 degrees-of-freedom robotic arm designed in SolidWorks, full 3D assembly with articulated joints.</div>
+        <span class="project-tag">SolidWorks · Assembly</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">🎬 Video</span>
+        <a href="https://youtu.be/Q4DY96e2o70" target="_blank" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-decoration:none;background:#0d0d14 url('https://img.youtube.com/vi/Q4DY96e2o70/hqdefault.jpg') center/cover;">
+          <span style="background:rgba(0,0,0,0.35);width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+            <span style="width:56px;height:56px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;">▶</span>
+            <span style="color:rgba(255,255,255,0.6);font-size:12px;">Watch on YouTube</span>
+          </span>
+        </a>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Sugarcane Crusher Machine</div>
+        <div class="project-desc">Industrial machine designed to crush sugarcane, modeled with full mechanism motion in SolidWorks.</div>
+        <span class="project-tag">Mechanism Design</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">🎬 Video</span>
+        <a href="https://youtu.be/ahjVnmgtXi0" target="_blank" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-decoration:none;background:#0d0d14 url('https://img.youtube.com/vi/ahjVnmgtXi0/hqdefault.jpg') center/cover;">
+          <span style="background:rgba(0,0,0,0.35);width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+            <span style="width:56px;height:56px;background:rgba(255,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;">▶</span>
+            <span style="color:rgba(255,255,255,0.6);font-size:12px;">Watch on YouTube</span>
+          </span>
+        </a>
+      </div>
+      <div class="project-body">
+        <div class="project-title">Gearbox Design</div>
+        <div class="project-desc">Mechanical gearbox assembly with gear train design, modeled and simulated for motion analysis.</div>
+        <span class="project-tag">Power Transmission</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/7xjfkwkd/Trassy.jpg" alt="Scissor Lift Machine">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Scissor Lift Machine</div>
+        <div class="project-desc">Mobile scissor lift platform with full scissor mechanism assembly for vertical access applications.</div>
+        <span class="project-tag">Mechanism · Assembly</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/whdsjfj2/Assem1.jpg" alt="Electrical Control Panel Enclosure">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Electrical Control Panel Enclosure</div>
+        <div class="project-desc">Sheet metal control panel enclosure with ventilation louvers, indicator lights, and access panels.</div>
+        <span class="project-tag">Sheet Metal</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/Xxz4vbpc/Part2.jpg" alt="Spiral Staircase Design">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Spiral Staircase Design</div>
+        <div class="project-desc">Structural spiral staircase design built with weldment features for industrial access.</div>
+        <span class="project-tag">Weldments · Structure</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/G4dNhcmN/Part3.jpg" alt="Industrial Staircase with Platform">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Industrial Staircase with Platform</div>
+        <div class="project-desc">Industrial access staircase with landing platform, designed for structural strength and safety.</div>
+        <span class="project-tag">Weldments · Structure</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/s98w6J4k/Screenshot-2025-09-12-215713.png" alt="Industrial Storage Rack">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Industrial Storage Rack</div>
+        <div class="project-desc">Multi-level storage rack system designed with weldment framing and load-bearing shelving.</div>
+        <span class="project-tag">Weldments · Storage</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/84Btz4My/Screenshot-2025-09-12-215317.png" alt="Sheet Metal Mounting Bracket">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Sheet Metal Mounting Bracket</div>
+        <div class="project-desc">Formed sheet metal bracket with mounting holes and ventilation cutouts for motor mounting applications.</div>
+        <span class="project-tag">Sheet Metal · Bracket</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-media-wrap">
+        <span class="media-badge">📷 Image</span>
+        <img class="project-img" src="https://i.ibb.co/DgznqW4q/Crane.jpg" alt="Crane Design">
+      </div>
+      <div class="project-body">
+        <div class="project-title">Crane Design</div>
+        <div class="project-desc">Structural crane design for material handling, modeled with full assembly and load components.</div>
+        <span class="project-tag">Structure · Heavy Machinery</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills" style="background: rgba(255,255,255,0.015);">
+  <div class="section-title">Skills</div>
+  <div class="section-heading">Tools & expertise</div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">SolidWorks</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">3D Part Modeling</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Assembly Design</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Technical Drawings</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Sheet Metal</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Weldments</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Mechanism Design</div></div>
+    <div class="skill-card"><div class="skill-dot"></div><div class="skill-name">Design for Manufacturing</div></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-box">
+    <h3>Let's work together</h3>
+    <p>Available for freelance mechanical design projects.<br>Get in touch and let's discuss your needs.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:mohamedtalaat21558@gmail.com">✉️ Email</a>
+      <a class="contact-link" href="https://wa.me/201151803089" target="_blank">💬 WhatsApp</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/mohamed-talaat-b20a70349" target="_blank">💼 LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Mohamed Talaat Hassan — Mechanical Design Engineer</footer>
+
+</body>
+</html>
